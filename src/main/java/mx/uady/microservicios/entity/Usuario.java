@@ -13,15 +13,29 @@ import jakarta.persistence.Table;
 public class Usuario {
 	@Id
 	@Column(name="identificador")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name="nombre")
 	private String nombre;
 	
-	public Usuario(int id, String nombre) {
+	@Column(name="edad")
+	private int edad;
+	
+	@Column(name="sexo")
+	private boolean sexo;
+	
+	public Usuario(int id, String nombre, int edad, boolean sexo) {
 		this.id = id;
 		this.nombre = nombre;
+		this.edad=edad;
+		this.sexo=sexo;
+	}
+	
+	public Usuario(String nombre, int edad, boolean sexo) {
+		this.nombre = nombre;
+		this.edad=edad;
+		this.sexo=sexo;
 	}
 
 	public Usuario(String nombre) {
@@ -48,9 +62,35 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 	
+	public int getEdad() {
+		return edad;
+	}
+
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+
+	public boolean isSexo() {
+		return sexo;
+	}
+	
+	public String getSexo(){
+		if (this.sexo) {
+			return "Masculino";
+		}else {
+			return "Femenino";
+		}
+	}
+	public void setSexo(boolean sexo) {
+		this.sexo = sexo;
+	}
+	
 	@Override
 	public String toString() {
-		return "Id: "+getId() +" Nombre: "+ getNombre();
+		return "Id: "+getId() +" Nombre: "+ getNombre() +" Edad: "+ getEdad()+" Sexo: " + getSexo();
 	}
+	
+
+	
 	
 }
