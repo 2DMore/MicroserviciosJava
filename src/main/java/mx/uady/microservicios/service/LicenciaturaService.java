@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.uady.microservicios.entity.Licenciatura;
+import mx.uady.microservicios.entity.Materia;
 import mx.uady.microservicios.repository.LicenciaturaRepository;
 
 @Service
@@ -20,6 +21,15 @@ public class LicenciaturaService {
 		return licenciaturaRepository.findAll();
 	}
 	public Licenciatura buscarLicenciatura(String clave) {
-		return licenciaturaRepository.getReferenceById(clave);
+		List<Licenciatura> lLics= getAllLicenciaturas();
+		for (Licenciatura lic : lLics) {
+			if (lic.getClaveLicenciatura().equals(clave)) {
+				return lic;
+			}
+		}
+		return null;
+	}
+	public void agregarMapeoMateria(Licenciatura lic, Materia mat) {
+		lic.getMapMateria().add(mat);
 	}
 }

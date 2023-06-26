@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import mx.uady.microservicios.entity.Licenciatura;
 import mx.uady.microservicios.entity.Materia;
 import mx.uady.microservicios.entity.Usuario;
 import mx.uady.microservicios.repository.MateriaRepository;
@@ -33,6 +34,9 @@ public class MateriaService {
 	}
 	public void agregarMapeoUsuario (Materia mat, Usuario user) {
 		mat.getMapUsuario().add(user);
+	}
+	public void agregarMapeoLicenciatura (Materia mat, Licenciatura lic) {
+		mat.getMapLicenciatura().add(lic);
 	}
 	
 }
