@@ -1,11 +1,20 @@
 package mx.uady.microservicios.entity;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,6 +33,18 @@ public class Usuario {
 	
 	@Column(name="sexo")
 	private boolean sexo;
+	
+	//Relacion Usuario n:1 Licenciatura
+	@ManyToOne(optional=false)
+	@JoinColumn(name = "clavelicenciatura", nullable = false, referencedColumnName = "clvlicenciatura")
+	private Licenciatura licenciatura;
+
+	//Relacion Usuario n:m Materias
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinTable(name = "inscripcion_materia",
+        joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName= "identificador"),
+        inverseJoinColumns = @JoinColumn(name = "id_materia", referencedColumnName = "clavematerias"))
+    private Set<Materia> mapMateria = new HashSet <>();
 	
 	public Usuario(int id, String nombre, int edad, boolean sexo) {
 		this.id = id;
@@ -81,8 +102,25 @@ public class Usuario {
 			return "Femenino";
 		}
 	}
+	
 	public void setSexo(boolean sexo) {
 		this.sexo = sexo;
+	}
+	
+	public Licenciatura getLicenciatura() {
+		return licenciatura;
+	}
+
+	public void setLicenciatura(Licenciatura licenciatura) {
+		this.licenciatura = licenciatura;
+	}
+
+	public Set<Materia> getMapMateria() {
+		return mapMateria;
+	}
+
+	public void setMapMateria(Set<Materia> mapMateria) {
+		this.mapMateria = mapMateria;
 	}
 	
 	@Override

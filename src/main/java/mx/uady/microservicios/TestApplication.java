@@ -5,7 +5,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import mx.uady.microservicios.entity.Licenciatura;
 import mx.uady.microservicios.entity.Materia;
 import mx.uady.microservicios.entity.Usuario;
 import mx.uady.microservicios.service.LicenciaturaService;
@@ -32,17 +31,29 @@ public class TestApplication implements  CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception{
 		System.out.println("public void run");
-		/*Materia materia= new Materia("DCD", "Diseno de base de datos", 5, "LIS");
-		System.out.println(materiaService.insertarMateria(materia));
-		System.out.println(usuarioService.insertarUsuario(new Usuario("Daniel", 24, true)));
-		System.out.println("Usuarios insertados: "+ usuarioService.getAllUsuarios().toString());
-		System.out.println("Materias insertadas: "+ materiaService.getAllMaterias().toString());
-		System.out.println(licenciaturaService.insertarLicenciatura(new Licenciatura("LA", "Licenciatura en Actuaria", 9)));
-		System.out.println(licenciaturaService.insertarLicenciatura(new Licenciatura("LCC", "Licenciatura en Ciencias de la Computacion", 9)));
-		System.out.println(licenciaturaService.insertarLicenciatura(new Licenciatura("LEM", "Licenciatura en Ensenanza de las Matematicas", 8)));
-		System.out.println(licenciaturaService.insertarLicenciatura(new Licenciatura("LIC", "Licenciatura en Ingenieria en Computacion", 9)));
-		System.out.println(licenciaturaService.insertarLicenciatura(new Licenciatura("LM", "Licenciatura en Matematicas", 8)));
-		System.out.println("Licenciaturas insertadas: "+ licenciaturaService.getAllLicenciaturas().toString());*/
+		
+		Usuario usuario=usuarioService.buscarUsuario(10);
+		Materia mat1=materiaService.buscarMateria("CD");
+		Materia mat2=materiaService.buscarMateria("DA");
+		Materia mat3=materiaService.buscarMateria("IE");
+		Materia mat4=materiaService.buscarMateria("LRT");
+		
+		usuarioService.agregarMapeoMateria(usuario, mat1);
+		usuarioService.agregarMapeoMateria(usuario, mat2);
+		usuarioService.agregarMapeoMateria(usuario, mat3);
+		usuarioService.agregarMapeoMateria(usuario, mat4);
+		materiaService.agregarMapeoUsuario(mat1, usuario);
+		materiaService.agregarMapeoUsuario(mat2, usuario);
+		materiaService.agregarMapeoUsuario(mat3, usuario);
+		materiaService.agregarMapeoUsuario(mat4, usuario);
+		
+		System.out.println(usuarioService.insertarUsuario(usuario));
+		
+		System.out.println(materiaService.insertarMateria(mat1));
+		System.out.println(materiaService.insertarMateria(mat2));
+		System.out.println(materiaService.insertarMateria(mat3));
+		System.out.println(materiaService.insertarMateria(mat4));
+		
 		
 	}
 }

@@ -19,4 +19,7 @@ public class LicenciaturaService {
 	public List<Licenciatura> getAllLicenciaturas(){
 		return licenciaturaRepository.findAll();
 	}
+	public Licenciatura buscarLicenciatura(String clave) {
+		return licenciaturaRepository.getReferenceById(clave);
+	}
 }
